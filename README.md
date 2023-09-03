@@ -109,13 +109,15 @@ _php 7.4.9, composer 2.6.1 with Laravel 8.83.27_
         </pre>
 
     3. Because Eloquent does not support sql checks, write them separately: <br>
+        <i>ALTERNATELY / ADDITIONALLY: We can add these checks during validation</i> <br>
     <pre>
         DB::statement('
         ALTER TABLE user_profiles
         ADD CONSTRAINT anv_rating_check CHECK (avg_rating >= 0 AND avg_rating <= 5)
         ');
     </pre> 
-        ALTERNATELY / ADDITIONALLY: We can add these checks during validation
+    <br>
+        
     
     4. Using Composite Primary Key <br>
         <pre>$table->primary(['book_id', 'shelf_id']);</pre>
@@ -138,7 +140,18 @@ _php 7.4.9, composer 2.6.1 with Laravel 8.83.27_
             DB::table('shelves')->whereIn('name',['read','reading','tbr'])->delete();
         }
         </pre>
-3. 
+### Adding Book Routes and Operations
+1. **`php artisan make:controller BookController`**
+2. routes.php > api.php 
+    1. Import BookController `use App\Http\Controllers\BookController;`
+    2. group book related routes together:
+        2.1. `Route::middleware([])->prefix('book')->group(function(){}`
+        2.2. will add middleware later 
+    3. Inside the function, add the routes as follows:
+        3.1. `Route::post('/',[BookController::class, 'create']);`
+        3.2. add similar routes for get, put and delete
+3. Implement the necessary functions in BookController
+
 
 # Resources Used
 1. [ Working with Laravel Compoite Keys](https://medium.com/@przyczynski/laravel-working-with-composite-keys-8c4b282f5523)
