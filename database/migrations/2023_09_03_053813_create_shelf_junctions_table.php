@@ -14,8 +14,16 @@ class CreateShelfJunctionsTable extends Migration
     public function up()
     {
         Schema::create('shelf_junctions', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('book_id')->notNullable();
+            $table->unsignedBigInteger('shelf_id')->notNullable();
+            #composite primary key
+            $table->primary(['book_id', 'shelf_id']);
             $table->timestamps();
+        });
+
+        Schema::table('shelf_junctions', function (Blueprint $table){
+            $table->foreign('book_id')->reference('id')->on('books');
+            $table->foreign('shelf_id')->reference('id')->on('shelves');
         });
     }
 

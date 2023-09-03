@@ -116,5 +116,14 @@ _php 7.4.9, composer 2.6.1 with Laravel 8.83.27_
         ');
     </pre> 
         ALTERNATELY / ADDITIONALLY: We can add these checks during validation
-        
+    
+    4. Using Composite Primary Key <br>
+        <pre>$table->primary(['book_id', 'shelf_id']);</pre>
+        In doing so, you just specify the primary key in the model as well:
+        <pre>protected $primaryKey = ['book_id', 'shelf_id'];</pre>
+
 3. 
+
+# Resources Used
+1. [ Working with Laravel Compoite Keys](https://medium.com/@przyczynski/laravel-working-with-composite-keys-8c4b282f5523)
+2. 

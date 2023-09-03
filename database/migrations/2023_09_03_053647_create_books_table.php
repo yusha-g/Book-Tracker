@@ -15,8 +15,19 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->notNullable();
+            $table->string('author')->notNullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->integer('personal_rating')->nullable();
             $table->timestamps();
         });
+
+        DB::statement('
+        ALTER TABLE books
+        ADD CONSTRAINT date_timeline_check CHECK (end_date >= start_date),
+        ADD CONSTRAINT personal_rating_check CHECK (personal_rating >=0 AND personal_rating <= 5)
+        ');
     }
 
     /**

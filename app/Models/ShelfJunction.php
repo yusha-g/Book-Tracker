@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ShelfJunction extends Model
 {
     use HasFactory;
+    protected $primaryKey = ['book_id', 'shelf_id'];
+    
 }

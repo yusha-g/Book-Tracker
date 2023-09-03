@@ -15,6 +15,7 @@ class CreateShelvesTable extends Migration
     {
         Schema::create('shelves', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->notNullable();
             $table->timestamps();
         });
     }
