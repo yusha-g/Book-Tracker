@@ -27,12 +27,12 @@ class CreateUserProfilesTable extends Migration
 
 
         Schema::table('user_profiles', function($table){
-            $table->foreign('user_id')->reference('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         DB::statement('
         ALTER TABLE user_profiles
-        ADD CONSTRAINT anv_rating_check CHECK (avg_rating >= 0 AND avg_rating <= 5)
+        ADD CONSTRAINT avg_rating_check CHECK (avg_rating >= 0 AND avg_rating <= 5)
         ');
     }
 

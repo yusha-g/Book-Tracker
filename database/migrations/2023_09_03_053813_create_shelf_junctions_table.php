@@ -22,8 +22,8 @@ class CreateShelfJunctionsTable extends Migration
         });
 
         Schema::table('shelf_junctions', function (Blueprint $table){
-            $table->foreign('book_id')->reference('id')->on('books');
-            $table->foreign('shelf_id')->reference('id')->on('shelves');
+            $table->foreign('book_id')->references('id')->on('books');
+            $table->foreign('shelf_id')->references('id')->on('shelves');
         });
     }
 
