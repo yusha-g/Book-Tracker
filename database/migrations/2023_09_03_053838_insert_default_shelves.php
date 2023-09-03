@@ -13,7 +13,11 @@ class InsertDefaultShelves extends Migration
      */
     public function up()
     {
-        //
+        DB::table('shelves')->insert([
+            ['name'=>'read'],
+            ['name'=>'reading'],
+            ['name'=>'tbr']
+        ]);
     }
 
     /**
@@ -23,6 +27,6 @@ class InsertDefaultShelves extends Migration
      */
     public function down()
     {
-        //
+        DB::table('shelves')->whereIn('name',['read','reading','tbr'])->delete();
     }
 }

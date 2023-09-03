@@ -122,6 +122,22 @@ _php 7.4.9, composer 2.6.1 with Laravel 8.83.27_
         In doing so, you just specify the primary key in the model as well:
         <pre>protected $primaryKey = ['book_id', 'shelf_id'];</pre>
 
+    5. Inserting Default Shelves [read, reading, tbr]
+        <pre>
+        public function up()
+        {
+            DB::table('shelves')->insert([
+                ['name'=>'read'],
+                ['name'=>'reading'],
+                ['name'=>'tbr']
+            ]);
+        }
+
+        public function down()
+        {
+            DB::table('shelves')->whereIn('name',['read','reading','tbr'])->delete();
+        }
+        </pre>
 3. 
 
 # Resources Used
