@@ -15,12 +15,17 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->notNullable();
             $table->string('title')->notNullable();
             $table->string('author')->notNullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->integer('personal_rating')->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('books', function (Blueprint $table){
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         DB::statement('

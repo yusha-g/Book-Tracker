@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\UserProfile;
+use App\Models\Book;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -22,6 +25,13 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    public function profile(){
+        return $this->hasOne(UserProfile::class);
+    }
+    public function books(){
+        return $this->hadMany(Book::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
