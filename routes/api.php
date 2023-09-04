@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,22 @@ use App\Http\Controllers\BookController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/login',[AuthController::class,'login']);
+Route::post('/register',[AuthController::class,'register']);
+Route::post('/logout',[AuthController::class,'logout']);
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    //get user information
+    Route::get('/user', function(Request $req){
+        $user = $req->user();
+        $auth_user = Auth::user();
+        return response()->json([
+            $user,
+            $auth_user
+        ]);
+    });
+
 });
 
 /** BOOK CRUD OPERATIONS
@@ -26,7 +41,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  * Delete - delete
  */
 
-Route::middleware([])->prefix('book')->group(function(){
+Route::middleware('auth:sanctum')->prefix('book')->group(function(){
     Route::post('/',[BookController::class, 'create']); //add new book
     Route::get('/',[BookController::class, 'read']);    //list all books
     Route::put('/{id}',[BookController::class, 'update']);  //update book by id
